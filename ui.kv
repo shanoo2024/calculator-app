@@ -1,0 +1,216 @@
+#:import dp kivy.metrics.dp
+
+<CalcButton@ButtonBehavior+MDFloatLayout>:
+    text: ""
+    # رنگ در حالت عادی
+    base_color: 0.20, 0.21, 0.27, 1
+    # رنگ در حالت فشرده (کمی روشن‌تر)
+    down_color: 0.30, 0.32, 0.40, 1
+    
+    text_col: 1, 1, 1, 1
+    size_hint: 1, None
+    height: dp(64)
+    on_release: app.press(root.text)
+
+    canvas.before:
+        Color:
+            # تغییر رنگ بر اساس وضعیت دکمه (state)
+            rgba: self.down_color if self.state == 'down' else self.base_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(32),]
+
+    MDLabel:
+        text: root.text
+        halign: "center"
+        valign: "middle"
+        theme_text_color: "Custom"
+        text_color: root.text_col
+        font_size: "22sp"
+        bold: True
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+<OpButton@CalcButton>:
+    base_color: 0.25, 0.26, 0.33, 1
+    down_color: 0.35, 0.37, 0.45, 1
+    text_col: 0.72, 0.78, 1.00, 1
+
+<ACButton@CalcButton>:
+    text: "AC"
+    base_color: 0.25, 0.26, 0.33, 1
+    down_color: 0.40, 0.20, 0.20, 1 # متمایل به قرمز تیره هنگام کلیک
+    text_col: 1, 0.4, 0.4, 1
+    on_release: app.clear()
+
+<EqualButton@CalcButton>:
+    text: "="
+    base_color: 0.72, 0.78, 1.00, 1
+    down_color: 0.85, 0.90, 1.00, 1
+    text_col: 0.08, 0.10, 0.16, 1
+    on_release: app.equals()
+
+# برای دکمه‌های پایین هم همین منطق را اضافه می‌کنیم
+<BottomPrimaryButton@ButtonBehavior+MDFloatLayout>:
+    text: ""
+    size_hint: None, None
+    size: dp(110), dp(42)
+    
+    canvas.before:
+        Color:
+            rgba: (0.30, 0.33, 0.42, 1) if self.state == 'down' else (0.22, 0.24, 0.31, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(21),]
+
+    MDLabel:
+        text: root.text
+        halign: "center"
+        valign: "middle"
+        theme_text_color: "Custom"
+        text_color: 0.88, 0.90, 1.00, 1
+        font_size: "16sp"
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+<BottomFlatButton@ButtonBehavior+MDFloatLayout>:
+    text: ""
+    size_hint: None, None
+    size: dp(80), dp(42)
+
+    MDLabel:
+        text: root.text
+        halign: "center"
+        valign: "middle"
+        theme_text_color: "Custom"
+        text_color: 0.92, 0.92, 0.96, 1
+        font_size: "16sp"
+        size_hint: 1, 1
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+<CalcRoot>:
+    orientation: "vertical"
+    padding: [dp(16), dp(16), dp(16), dp(16)]
+    spacing: dp(14)
+
+    canvas.before:
+        Color:
+            rgba: 0.10, 0.11, 0.13, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDCard:
+        size_hint_y: None
+        height: dp(180)
+        radius: [dp(28), dp(28), dp(28), dp(28)]
+        md_bg_color: 0.13, 0.14, 0.16, 1
+        line_color: 0.30, 0.31, 0.34, 1
+        line_width: 1
+        padding: [dp(24), dp(24), dp(24), dp(24)]
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            Widget:
+                size_hint_y: None
+                height: dp(24)
+
+            MDLabel:
+                id: display
+                text: app.display_text
+                halign: "right"
+                valign: "middle"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                font_size: "56sp"
+                bold: True
+
+    MDGridLayout:
+        cols: 4
+        spacing: dp(12)
+        size_hint_y: None
+        height: self.minimum_height
+
+        OpButton:
+            text: "("
+
+        OpButton:
+            text: ")"
+
+        OpButton:
+            text: "%"
+
+        ACButton:
+
+        CalcButton:
+            text: "7"
+
+        CalcButton:
+            text: "8"
+
+        CalcButton:
+            text: "9"
+
+        OpButton:
+            text: "÷"
+
+        CalcButton:
+            text: "4"
+
+        CalcButton:
+            text: "5"
+
+        CalcButton:
+            text: "6"
+
+        OpButton:
+            text: "×"
+
+        CalcButton:
+            text: "1"
+
+        CalcButton:
+            text: "2"
+
+        CalcButton:
+            text: "3"
+
+        OpButton:
+            text: "−"
+
+        CalcButton:
+            text: "0"
+
+        CalcButton:
+            text: "."
+
+        EqualButton:
+
+        OpButton:
+            text: "+"
+
+    Widget:
+
+    MDCard:
+        size_hint_y: None
+        height: dp(58)
+        radius: [dp(29), dp(29), dp(29), dp(29)]
+        md_bg_color: 0.16, 0.17, 0.20, 1
+        line_color: 0.24, 0.25, 0.28, 1
+        line_width: 1
+        padding: [dp(8), dp(8), dp(8), dp(8)]
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(8)
+
+            BottomPrimaryButton:
+                text: "123"
+
+            Widget:
+
+            BottomFlatButton:
+                text: "Fx"
+
+CalcRoot:
