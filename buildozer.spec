@@ -1,10 +1,10 @@
 [app]
 title = Calculator
 package.name = calculator
-package.domain = org.example
+package.domain = org.shanoo
 
 source.dir = .
-source.include_exts = py,kv,png,jpg,jpeg,webp,ttf,otf,txt,json
+source.include_exts = py,kv
 
 version = 0.1
 
