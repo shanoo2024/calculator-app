@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install Dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -26,23 +26,15 @@ jobs:
             libncursesw5-dev cmake libffi-dev libssl-dev build-essential \
             liblzma-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev \
             libreadline-dev libjpeg-dev libedit-dev libgdbm-dev \
-            g++-multilib libstdc++6-12-dbg libgcc1-dbg \
-            openjdk-17-jdk git zip unzip
+            g++-multilib openjdk-17-jdk git zip unzip
 
-      - name: Install Buildozer and dependencies
+      - name: Install Python dependencies
         run: |
-          pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade pip setuptools wheel
           pip install buildozer cython
-
-      - name: Setup Android SDK requirements
-        run: |
-          # این مرحله به buildozer کمک می‌کند تا SDK را شناسایی کند
-          buildozer android debug || true
-          # یک بار اجرا می‌کنیم تا ساختار پوشه‌ها ساخته شود، اگر fail شد نادیده می‌گیریم
 
       - name: Build APK
         run: |
-          # اجرای نهایی build
           buildozer android debug
 
       - name: Upload APK
