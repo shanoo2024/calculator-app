@@ -36,7 +36,7 @@ jobs:
       - name: Build APK
         run: |
           # استفاده از yes | باعث می‌شود به تمام درخواست‌های تایید مجوز، به صورت خودکار پاسخ y داده شود
-          yes | buildozer android debug
+          buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
